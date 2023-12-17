@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="attraction"
+            type="com.example.myapplication.AttractionData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/attractionPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/attractionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{attraction.name}"
+            android:textStyle="bold"
+            tools:text="Preview Text"
+            app:layout_constraintStart_toEndOf="@+id/attractionPhoto"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/attractionContents"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            tools:text="體驗式學習行文創基地\r\n\r\n萬華本身具豐富內涵與文化，無論是文字、視覺、聲音、表演、工藝甚至氣味與食物等，在在散發獨特的風貌，龍山文創基地以「培養在地設計師、藝術家、創作者」為主軸，發展在地品牌，以導覽、藝文表演、互動工作坊等讓民眾參與及體驗，讓旅客於此體驗，發掘萬華的文化與文創能量。\r\n\r\n從B2認識艋舺美與善\r\n\r\n重新塑造目前龍山文創基地給人的既定形象，從文創品、飲食、街景與服務皆彰顯萬華在地美與善的形象與特色，並將過去常民生活展示於此，讓到萬華的旅客以此為出發點，進而認識艋舺。"
+            android:text="@{attraction.introduction}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/attractionPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/attractionTitle" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_media_play" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
