@@ -1,62 +1,87 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.databinding.FragmentFirstBinding
+import com.example.myapplication.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,AttractionAdapter.OnAttractionItemClickListener {
 
-    private var _binding: FragmentFirstBinding? = null
+    private lateinit var _binding: FragmentHomeBinding
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+
     private lateinit var viewModel: HomeViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 初始化 ViewModel
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // 在 Activity 中使用 ViewModel 中的 fetchData 函數
-        viewModel.fetchData("en")
+        lifecycleScope.launch {
+            viewModel.fetchData("zh-tw")
+        }
 
-//        val recyclerView: RecyclerView = binding.recyclerView
-//        val adapter = AttractionAdapter(getDataList()) { selectedItem ->
-//            // 在這裡處理 RecyclerView 中的項目點擊事件
-//            // 例如，進行導航到另一個 Fragment
-//            val action = YourFragmentDirections.actionYourFragmentToAnotherFragment(selectedItem.itemId)
-//            findNavController().navigate(action)
-//        }
-//        recyclerView.adapter = adapter
-//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
+
+        val eventsRecyclerView: RecyclerView = _binding.eventsRecycleView
+        val attractionRecyclerView :RecyclerView = _binding.attractionRecycleView
+        val eventAdapter = EventsAdapter(context!!,this)
+        val attractionAdapter = AttractionAdapter(context!!,this)
+        attractionRecyclerView.layoutManager = LinearLayoutManager(context)
+        eventsRecyclerView.layoutManager = LinearLayoutManager(context)
+        viewModel.attractionsList.observe(this, Observer {
+
+            attractionAdapter.attractions = it
+            attractionRecyclerView.adapter = attractionAdapter
+            attractionRecyclerView.adapter!!.notifyDataSetChanged()
+
+
+        })
+
+        viewModel.eventsList.observe(this, Observer {
+
+            eventAdapter.events = it
+            eventsRecyclerView.adapter = eventAdapter
+            eventsRecyclerView.adapter!!.notifyDataSetChanged()
+        })
+
+
+
+
+        return _binding.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onEventItemClick(event: EventsData) {
 
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+        val bundle = Bundle()
+        bundle.putString("url", event.url)
+        findNavController().navigate(R.id.action_global_webFragment,bundle)
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onAttractionItemClick(attraction: AttractionData) {
+        val bundle = Bundle()
+        bundle.putSerializable("attraction", attraction)
+        findNavController().navigate(R.id.action_global_DetailFragment,bundle)
+
     }
 }

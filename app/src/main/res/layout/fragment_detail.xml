@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="attractionData"
+            type="com.example.myapplication.AttractionData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,14 +35,19 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/openTime"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_blue_border"
+                    android:padding="4dp"
                     android:text="竹子湖"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/picture" />
+
 
                 <TextView
                     android:id="@+id/introduction"
@@ -49,55 +56,53 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_blue_border"
+                    android:padding="4dp"
                     android:text="竹子湖位於陽明山國家公園核心區，海拔約650-670公尺，其北側為小觀音山、東依著七星山、西靠臨大屯山、向南則敞開一覽無遺地俯瞰臺北盆地。其原是35萬年前火山噴發造成的「堰塞湖」，因侵蝕作用產生缺口，湖水逐漸流失枯竭形成一處窪地。其自古即劃分為東湖、頂湖及下湖三個封閉的地區，東湖係指湖田國小一帶，為竹子湖地名原點之所在；頂湖係指越過湖田橋後，沿右邊產業道路前行，一處面積約20公頃的小盆地，因位於東湖之上方高處，故名頂湖；下湖則指今海芋大道一帶的盆地，竹子湖溪穿流其間，因位於東湖相對低處，故為下湖。\r\n▲圖片來源：臺北市政府觀光傳播局\r\n\r\n竹子湖地名的由來\r\n竹子湖原是火山熔岩噴發形成的堰塞湖，因湖水逐漸流失形成一片濕地，一千多年前平埔族凱達格蘭人即開始進入屯墾。兩百年前漢人初到此地開墾時，因見土地泥濘且遍地竹林，於是稱此為竹子湖(閩南語中的「湖」有泥濘地的意思)。另有在地古老傳說，因山間盆地一帶早期簇生著箭竹林，山頂吹下的山風搖動箭竹林的景象，彷彿是湖水盪漾，因此稱之為竹子湖。\r\n▲圖片來源：臺北市政府觀光傳播局\r\n\r\n竹子湖海芋季\r\n海芋原產於南非，因為它的苞片盛開時有如倒立的馬蹄，而植株又如同蓮花般生長在水中因此被稱為「馬蹄蓮」。目前竹子湖海芋花田生產總面積約有十三公頃，占全臺海芋產量百分之八十以上；海芋花期自每年元月至五月，花量最盛期在三至四月。竹子湖海芋以白色海芋為主，白色部分形姿優雅的「佛焰苞」並非其花，苞片中央黃色的肉穗花序上開滿了許多毫不起眼的小花，雌雄分隔，井然有序。\r\n▲圖片來源：臺北市政府觀光傳播局\r\n\r\n竹子湖繡球花\r\n時序進入五月下旬，浪漫的白色海芋花海逐漸進入尾聲，緊接著是在端午連假盛開的紫藍色繡球花。\r\n▲圖片來源：臺北市政府觀光傳播局\r\n\r\n竹子湖地區種植的繡球花約有7至8個品種，顏色多樣化，有純白色、粉色滾紅邊、粉紅色、紫紅色、淺藍色、藍色等色系；外型則同時有大輪花、中輪花分布在農園中，而且色彩濃豔、層次豐富，增添繡球花千變萬化的風采，相當適合拍照留念"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
-
-                <TextView
-                    android:id="@+id/addressTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text="address"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/introduction" />
+                    app:layout_constraintTop_toBottomOf="@+id/webviewUrl" />
 
                 <TextView
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_blue_border"
+                    android:padding="4dp"
                     android:text="address"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
+                    android:textColor="#03A9F4"
+                    app:layout_constraintStart_toStartOf="@+id/openTime"
+                    app:layout_constraintTop_toBottomOf="@+id/openTime" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text="Last Updated Time"
-                    app:layout_constraintStart_toStartOf="@+id/name"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_blue_border"
+                    android:padding="4dp"
+                    android:text="電話
+"
+                    android:textColor="#03A9F4"
+                    app:layout_constraintStart_toStartOf="@+id/openTime"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
-
-                <TextView
-                    android:id="@+id/modified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2023-12-11 14:22:18 +08:00"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <TextView
                     android:id="@+id/webviewUrl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_blue_border"
+                    android:padding="4dp"
                     android:text="http:123456"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/modified" />
+                    android:textColor="#03A9F4"
+                    app:layout_constraintStart_toStartOf="@+id/openTime"
+                    app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

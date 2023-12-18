@@ -28,9 +28,13 @@ import retrofit2.http.*
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
+val loggingInterceptor = HttpLoggingInterceptor().apply {
+    level = HttpLoggingInterceptor.Level.BODY
+}
 
-private val client = OkHttpClient.Builder()
-    .build()
+val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor)
+
+
 
 /**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
@@ -39,7 +43,7 @@ private val client = OkHttpClient.Builder()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl("https://www.travel.taipei/open-api/")
-    .client(client)
+    .client(client.build())
     .build()
 
 
@@ -75,6 +79,14 @@ object StylishApi {
             response.data
         }
     }
+
+    suspend fun getEvents(lang: String): List<EventsData> {
+        return withContext(Dispatchers.IO) {
+            val response = taipeiTravelApi.getEventsAsync(lang)
+            response.data
+        }
+    }
+
 }
 
 

@@ -5,11 +5,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.myapplication.databinding.AttractionItemBinding
 
 
-class AttractionAdapter(private val context: Context) : RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder>() {
-
+class AttractionAdapter(private val context: Context, listener : OnAttractionItemClickListener) : RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder>() {
+    var mListener = listener;
     var attractions: List<AttractionData> = emptyList()
         set(value) {
             field = value
@@ -19,7 +21,7 @@ class AttractionAdapter(private val context: Context) : RecyclerView.Adapter<Att
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttractionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = AttractionItemBinding.inflate(inflater, parent, false)
-        return AttractionViewHolder(binding,context)
+        return AttractionViewHolder(binding,context,mListener)
     }
 
     override fun getItemCount(): Int = attractions.size
@@ -30,29 +32,28 @@ class AttractionAdapter(private val context: Context) : RecyclerView.Adapter<Att
 
 
 
-    class AttractionViewHolder(private val binding: AttractionItemBinding, private val context: Context) :
+    class AttractionViewHolder(private val binding: AttractionItemBinding, private val context: Context,private val listener : OnAttractionItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(attraction: AttractionData) {
 
             binding.attraction = attraction
 
+            Glide.with(context)
+                .load(attraction.images.firstOrNull()?.src)
+                .transition(DrawableTransitionOptions.withCrossFade()) // 设置渐变效果（可选）
+                .into(binding.attractionPhoto)
 
-            // 設定點擊監聽器
             binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-//
-//                    // 在這裡處理點擊事件，例如跳轉到另一個畫面
-//                    val intent = Intent(context, YourTargetActivity::class.java)
-//                    // 可以傳遞一些資料到目標 Activity
-//                    intent.putExtra("key", yourData)
-//                    context.startActivity(intent)
-                }
+                listener.onAttractionItemClick(attraction)
             }
             binding.executePendingBindings()
 
         }
 
+    }
+
+    interface OnAttractionItemClickListener {
+        fun onAttractionItemClick(attraction: AttractionData)
     }
 }

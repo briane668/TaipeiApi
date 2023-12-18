@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.NavHostFragment)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-
+        setupNavController()
 
     }
 
@@ -43,36 +43,17 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.NavHostFragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
              when (navController.currentDestination?.id) {
                 R.id.HomeFragment -> binding.title.text ="悠遊台北"
-                R.id.EventsFragment -> binding.title.text ="悠遊台北"
-                R.id.cartFragment -> CurrentFragmentType.CART
-                R.id.profileFragment -> CurrentFragmentType.PROFILE
-                R.id.detailFragment -> CurrentFragmentType.DETAIL
-                R.id.paymentFragment -> CurrentFragmentType.PAYMENT
-                R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
-                else -> viewModel.currentFragmentType.value
+                R.id.webFragment -> binding.title.text ="最新消息"
+                else -> ""
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+
+    public fun changeTitle (title :String){
+        binding.title.text = title
+
     }
 }
