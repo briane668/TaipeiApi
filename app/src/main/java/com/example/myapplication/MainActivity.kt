@@ -1,18 +1,16 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import android.view.View
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.NavHostFragment
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    
+    private val languages = arrayOf("zh-tw", "zh-cn", "en", "ja", "ko","es", "id", "th", "vi")
+    private val languagesForSelect = arrayOf("正體中文", "簡體中文", "英文", "日文", "韓文","西班牙文", "印尼文", "泰文", "越南文")
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +32,41 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         val navController = findNavController(R.id.NavHostFragment)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupNavController()
 
+
+//
+        binding.backButton.setOnClickListener {
+
+            findNavController(R.id.NavHostFragment).navigateUp()
+
+        }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.NavHostFragment) as NavHostFragment
+        val currentFragment = navHostFragment.childFragmentManager.primaryNavigationFragment
+
+        binding.language.setOnClickListener {
+            showLanguageSelectionDialog(currentFragment)
+        }
     }
 
 
     private fun setupNavController() {
         findNavController(R.id.NavHostFragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
              when (navController.currentDestination?.id) {
-                R.id.HomeFragment -> binding.title.text ="悠遊台北"
-                R.id.webFragment -> binding.title.text ="最新消息"
+                R.id.HomeFragment -> {
+                    binding.title.text ="悠遊台北"
+                    binding.language.visibility = View.VISIBLE
+                }
+                R.id.webFragment -> {
+                    binding.title.text ="最新消息"
+                    binding.language.visibility = View.GONE
+                }
+                 R.id.DetailFragment -> {
+                     binding.language.visibility = View.GONE
+                 }
                 else -> ""
             }
         }
@@ -51,6 +74,29 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    private fun showLanguageSelectionDialog(fragment: Fragment?) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Select Language")
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, languagesForSelect)
+        builder.setAdapter(adapter) { dialog, which ->
+            val selectedLanguage = languages[which]
+            // 在这里处理所选语言
+
+            var homeFragment = fragment as HomeFragment
+
+            homeFragment.callData(selectedLanguage)
+
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+            // 处理取消操作
+        }
+
+        builder.show()
+    }
 
     public fun changeTitle (title :String){
         binding.title.text = title

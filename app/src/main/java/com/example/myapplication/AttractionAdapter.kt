@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.databinding.AttractionItemBinding
 
 
@@ -42,6 +43,7 @@ class AttractionAdapter(private val context: Context, listener : OnAttractionIte
             Glide.with(context)
                 .load(attraction.images.firstOrNull()?.src)
                 .transition(DrawableTransitionOptions.withCrossFade()) // 设置渐变效果（可选）
+                .apply( RequestOptions().placeholder(R.drawable.placeholder))// 设置渐变效果（可选）
                 .into(binding.attractionPhoto)
 
             binding.root.setOnClickListener {

@@ -1,11 +1,14 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.myapplication.databinding.FragmentHomeBinding
@@ -57,6 +60,38 @@ class WebFragment : Fragment() {
 
         // 加载网页
         url?.let { _binding.webView.loadUrl(it) }
+
+
+        _binding.webView.settings.javaScriptEnabled = true
+
+        // 设置 WebViewClient 来处理页面加载和拦截 URL
+        _binding.webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                _binding.progressBar.visibility = View.VISIBLE
+
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                _binding.progressBar.visibility = View.GONE
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                // 在 WebView 内部加载链接，而不是通过外部浏览器
+                view?.loadUrl(request?.url.toString())
+                return true
+            }
+        }
+
+
+
+
+
+
+
+
+
 
 
         return binding.root

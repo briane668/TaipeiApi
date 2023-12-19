@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.databinding.FragmentDetailBinding
 
 
@@ -34,23 +35,25 @@ class DetailFragment : Fragment() {
 
             attractionData = it.getSerializable("attraction")as AttractionData
             println("wade wade"+attractionData.url)
-//            val activity: MainActivity? = activity as MainActivity?
-//            activity?.changeTitle(attractionData.name)
+            val activity: MainActivity? = activity as MainActivity?
+            activity?.changeTitle(attractionData.name)
         }
 
 
         Glide.with(this)
             .load(attractionData.images.firstOrNull()?.src)
-            .transition(DrawableTransitionOptions.withCrossFade()) // 设置渐变效果（可选）
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply( RequestOptions().placeholder(R.drawable.placeholder))// 设置渐变效果（可选）
             .into(_binding.picture)
 
+        _binding.introduction.text = attractionData.introduction
         _binding.openTime.text = "營業時間"+attractionData.open_time
         _binding.address.text = "地址:"+attractionData.address
         _binding.phone.text = "聯繫電話" + attractionData.tel
         _binding.webviewUrl.text =  attractionData.url
         _binding.webviewUrl.setOnClickListener {
             val bundle = Bundle()
-            Bundle().putString("url", attractionData.url)
+            bundle.putString("url", attractionData.url)
             findNavController().navigate(com.example.myapplication.R.id.action_global_webFragment,bundle)
         }
 

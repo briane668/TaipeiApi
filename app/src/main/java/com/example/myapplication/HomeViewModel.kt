@@ -15,7 +15,7 @@ class HomeViewModel: ViewModel() {
     lateinit var events: List<EventsData>
     lateinit var attractions: List<AttractionData>
     var attractionsList = MutableLiveData<List<AttractionData>>()
-
+    var hasApiBeenCalled: Boolean = false
 
      var eventsList = MutableLiveData<List<EventsData>>()
 

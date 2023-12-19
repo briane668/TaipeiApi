@@ -35,11 +35,15 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,Attract
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // 在 Activity 中使用 ViewModel 中的 fetchData 函數
-        lifecycleScope.launch {
-            viewModel.fetchData("zh-tw")
+
+
+        if (!viewModel.hasApiBeenCalled) {
+            lifecycleScope.launch {
+                _binding.shimmerLayout.startShimmer()
+                viewModel.fetchData("zh-tw")
+            }
+            viewModel.hasApiBeenCalled = true
         }
-
-
 
         val eventsRecyclerView: RecyclerView = _binding.eventsRecycleView
         val attractionRecyclerView :RecyclerView = _binding.attractionRecycleView
@@ -48,7 +52,7 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,Attract
         attractionRecyclerView.layoutManager = LinearLayoutManager(context)
         eventsRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.attractionsList.observe(this, Observer {
-
+            _binding.shimmerLayout.hideShimmer()
             attractionAdapter.attractions = it
             attractionRecyclerView.adapter = attractionAdapter
             attractionRecyclerView.adapter!!.notifyDataSetChanged()
@@ -57,7 +61,7 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,Attract
         })
 
         viewModel.eventsList.observe(this, Observer {
-
+            _binding.shimmerLayout.hideShimmer()
             eventAdapter.events = it
             eventsRecyclerView.adapter = eventAdapter
             eventsRecyclerView.adapter!!.notifyDataSetChanged()
@@ -82,6 +86,19 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,Attract
         val bundle = Bundle()
         bundle.putSerializable("attraction", attraction)
         findNavController().navigate(R.id.action_global_DetailFragment,bundle)
+
+    }
+
+
+    public fun callData (lang :String){
+        println("wade wade"+lang)
+
+
+        lifecycleScope.launch {
+            _binding.shimmerLayout.startShimmer()
+            viewModel.fetchData(lang)
+        }
+
 
     }
 }
