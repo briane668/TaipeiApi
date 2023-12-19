@@ -18,13 +18,10 @@ import kotlinx.coroutines.launch
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,
+class HomeFragment : Fragment(), EventsAdapter.OnEventItemClickListener,
     AttractionAdapter.OnAttractionItemClickListener {
 
     private lateinit var _binding: FragmentHomeBinding
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
 
     private lateinit var viewModel: HomeViewModel
     override fun onCreateView(
@@ -34,8 +31,6 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 初始化 ViewModel
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        // 在 Activity 中使用 ViewModel 中的 fetchData 函數
 
 
         if (!viewModel.hasApiBeenCalled) {
@@ -47,29 +42,24 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,
         }
 
         val eventsRecyclerView: RecyclerView = _binding.eventsRecycleView
-        val attractionRecyclerView :RecyclerView = _binding.attractionRecycleView
-        val eventAdapter = EventsAdapter(context!!,this)
-        val attractionAdapter = AttractionAdapter(context!!,this)
+        val attractionRecyclerView: RecyclerView = _binding.attractionRecycleView
+        val eventAdapter = EventsAdapter(context!!, this)
+        val attractionAdapter = AttractionAdapter(context!!, this)
         attractionRecyclerView.layoutManager = LinearLayoutManager(context)
         eventsRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.attractionsList.observe(this, Observer {
             _binding.shimmerLayout.hideShimmer()
             attractionAdapter.attractions = it
             attractionRecyclerView.adapter = attractionAdapter
-            attractionRecyclerView.adapter!!.notifyDataSetChanged()
 
 
         })
-
         viewModel.eventsList.observe(this, Observer {
             _binding.shimmerLayout.hideShimmer()
             eventAdapter.events = it
             eventsRecyclerView.adapter = eventAdapter
-            eventsRecyclerView.adapter!!.notifyDataSetChanged()
+
         })
-
-
-
 
         return _binding.root
 
@@ -78,16 +68,16 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,
     override fun onEventItemClick(event: EventsData) {
         val bundle = Bundle()
         bundle.putString("url", event.url)
-        findNavController().navigate(R.id.action_global_webFragment,bundle)
+        findNavController().navigate(R.id.action_global_webFragment, bundle)
     }
 
     override fun onAttractionItemClick(attraction: AttractionData) {
         val bundle = Bundle()
-        findNavController().navigate(R.id.action_global_DetailFragment,bundle)
+        findNavController().navigate(R.id.action_global_DetailFragment, bundle)
     }
 
 
-     fun callData (lang :String){
+    fun callData(lang: String) {
 
         lifecycleScope.launch {
             _binding.shimmerLayout.startShimmer()

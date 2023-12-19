@@ -31,16 +31,11 @@ class AttractionAdapter(private val context: Context, listener : OnAttractionIte
     override fun onBindViewHolder(holder: AttractionViewHolder, position: Int) {
         holder.bind(attractions[position])
     }
-
-
-
     class AttractionViewHolder(private val binding: AttractionItemBinding, private val context: Context,private val listener : OnAttractionItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(attraction: AttractionData) {
-
             binding.attraction = attraction
-
             Glide.with(context)
                 .load(attraction.images.firstOrNull()?.src)
                 .transition(DrawableTransitionOptions.withCrossFade()) // 设置渐变效果（可选）
@@ -51,9 +46,7 @@ class AttractionAdapter(private val context: Context, listener : OnAttractionIte
                 listener.onAttractionItemClick(attraction)
             }
             binding.executePendingBindings()
-
         }
-
     }
 
     interface OnAttractionItemClickListener {

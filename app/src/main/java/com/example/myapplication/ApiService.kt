@@ -34,8 +34,6 @@ val loggingInterceptor = HttpLoggingInterceptor().apply {
 
 val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor)
 
-
-
 /**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
  * object.
@@ -46,7 +44,6 @@ private val retrofit = Retrofit.Builder()
     .client(client.build())
     .build()
 
-
 interface TaipeiTravelApi {
     @Headers("Accept: application/json")
     @GET("{lang}/Attractions/All")
@@ -54,13 +51,11 @@ interface TaipeiTravelApi {
         @Path("lang") lang: String
     ): AttractionResponse
 
-
     @Headers("Accept: application/json")
     @GET("{lang}/Events/News")
     suspend fun getEventsAsync(
         @Path("lang") lang: String
     ): EventsResponse
-
 }
 
 
@@ -68,11 +63,7 @@ interface TaipeiTravelApi {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object StylishApi {
-
     private val taipeiTravelApi : TaipeiTravelApi by lazy { retrofit.create(TaipeiTravelApi::class.java) }
-
-
-
     suspend fun getAttractions(lang: String): List<AttractionData> {
         return withContext(Dispatchers.IO) {
             val response = taipeiTravelApi.getAttractionsAsync(lang)
@@ -86,7 +77,6 @@ object StylishApi {
             response.data
         }
     }
-
 }
 
 

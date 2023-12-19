@@ -27,25 +27,17 @@ class EventsAdapter(private val context: Context, listener : OnEventItemClickLis
         holder.bind(events[position])
     }
 
-
-
     class EventsViewHolder(private val binding: EventItemBinding, private val context: Context,private val listener : OnEventItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
-
-
         fun bind(event: EventsData) {
-
             binding.event = event
-
             binding.root.setOnClickListener {
                 listener.onEventItemClick(event)
             }
             binding.executePendingBindings()
-
         }
 
     }
-
     interface OnEventItemClickListener {
         fun onEventItemClick(event: EventsData)
     }
