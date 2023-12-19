@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.example.myapplication.AttractionData
+import com.example.myapplication.MainActivity
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDetailBinding
 
 
@@ -54,7 +57,7 @@ class DetailFragment : Fragment() {
         _binding.webviewUrl.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("url", attractionData.url)
-            findNavController().navigate(com.example.myapplication.R.id.action_global_webFragment,bundle)
+            findNavController().navigate(R.id.action_global_webFragment,bundle)
         }
 
         return binding.root

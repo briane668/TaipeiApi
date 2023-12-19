@@ -1,8 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.Home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.AttractionData
+import com.example.myapplication.EventsData
+import com.example.myapplication.StylishApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -1,8 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.Home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.EventsData
 import com.example.myapplication.databinding.EventItemBinding
 
 

@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import com.example.myapplication.Data.Category
+import com.example.myapplication.Data.Image
 import java.io.Serializable
 
 data class AttractionData(

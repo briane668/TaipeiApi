@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.example.myapplication.HomeFragment"
+        android:name="com.example.myapplication.Home.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_home">
 
     </fragment>
     <fragment
         android:id="@+id/DetailFragment"
-        android:name="com.example.myapplication.DetailFragment"
+        android:name="com.example.myapplication.Detail.DetailFragment"
         android:label="detail"
         tools:layout="@layout/fragment_detail">
 
     </fragment>
     <fragment
         android:id="@+id/webFragment"
-        android:name="com.example.myapplication.WebFragment"
+        android:name="com.example.myapplication.Web.WebFragment"
         android:label="fragment_web"
         tools:layout="@layout/fragment_web">
     </fragment>

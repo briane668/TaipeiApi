@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import com.example.myapplication.Home.HomeFragment
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setupNavController()
 
 
-//
+
         binding.backButton.setOnClickListener {
 
             findNavController(R.id.NavHostFragment).navigateUp()
@@ -57,14 +58,17 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.NavHostFragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
              when (navController.currentDestination?.id) {
                 R.id.HomeFragment -> {
+                    binding.backButton.visibility = View.GONE
                     binding.title.text ="悠遊台北"
                     binding.language.visibility = View.VISIBLE
                 }
                 R.id.webFragment -> {
+                    binding.backButton.visibility = View.VISIBLE
                     binding.title.text ="最新消息"
                     binding.language.visibility = View.GONE
                 }
                  R.id.DetailFragment -> {
+                     binding.backButton.visibility = View.VISIBLE
                      binding.language.visibility = View.GONE
                  }
                 else -> ""

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Web
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -7,11 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.databinding.FragmentWebBinding
 
 // TODO: Rename parameter arguments, choose names that match

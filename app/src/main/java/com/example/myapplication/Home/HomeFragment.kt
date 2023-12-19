@@ -1,10 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.Home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,AttractionAdapter.OnAttractionItemClickListener {
+class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,
+    AttractionAdapter.OnAttractionItemClickListener {
 
     private lateinit var _binding: FragmentHomeBinding
 
@@ -75,30 +76,22 @@ class HomeFragment : Fragment() , EventsAdapter.OnEventItemClickListener,Attract
     }
 
     override fun onEventItemClick(event: EventsData) {
-
         val bundle = Bundle()
         bundle.putString("url", event.url)
         findNavController().navigate(R.id.action_global_webFragment,bundle)
-
     }
 
     override fun onAttractionItemClick(attraction: AttractionData) {
         val bundle = Bundle()
-        bundle.putSerializable("attraction", attraction)
         findNavController().navigate(R.id.action_global_DetailFragment,bundle)
-
     }
 
 
-    public fun callData (lang :String){
-        println("wade wade"+lang)
-
+     fun callData (lang :String){
 
         lifecycleScope.launch {
             _binding.shimmerLayout.startShimmer()
             viewModel.fetchData(lang)
         }
-
-
     }
 }
