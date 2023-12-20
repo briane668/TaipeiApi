@@ -73,6 +73,7 @@ class HomeFragment : Fragment(), EventsAdapter.OnEventItemClickListener,
 
     override fun onAttractionItemClick(attraction: AttractionData) {
         val bundle = Bundle()
+        bundle.putSerializable("attraction", attraction)
         findNavController().navigate(R.id.action_global_DetailFragment, bundle)
     }
 
