@@ -45,6 +45,11 @@ class AttractionAdapter(private val context: Context, listener : OnAttractionIte
             binding.root.setOnClickListener {
                 listener.onAttractionItemClick(attraction)
             }
+
+            val categoryAdapter = CategoryAdapter(context)
+            categoryAdapter.categories = attraction.category
+            binding.categoryRecyclerView.adapter = categoryAdapter
+
             binding.executePendingBindings()
         }
     }

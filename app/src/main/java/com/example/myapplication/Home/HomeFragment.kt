@@ -49,16 +49,17 @@ class HomeFragment : Fragment(), EventsAdapter.OnEventItemClickListener,
         eventsRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.attractionsList.observe(this, Observer {
             _binding.shimmerLayout.hideShimmer()
+            val activity: MainActivity? = activity as MainActivity?
+            activity?.endAnimation()
             attractionAdapter.attractions = it
             attractionRecyclerView.adapter = attractionAdapter
-
-
         })
         viewModel.eventsList.observe(this, Observer {
+            val activity: MainActivity? = activity as MainActivity?
+            activity?.endAnimation()
             _binding.shimmerLayout.hideShimmer()
             eventAdapter.events = it
             eventsRecyclerView.adapter = eventAdapter
-
         })
 
         return _binding.root

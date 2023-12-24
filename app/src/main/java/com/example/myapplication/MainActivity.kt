@@ -1,18 +1,23 @@
 package com.example.myapplication
 
+
+import android.animation.Animator
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import com.airbnb.lottie.LottieAnimationView
 import com.example.myapplication.Home.HomeFragment
 import com.example.myapplication.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +45,32 @@ class MainActivity : AppCompatActivity() {
         binding.language.setOnClickListener {
             showLanguageSelectionDialog(currentFragment)
         }
+
+
+
+// 添加監聽器
+
+// 添加監聽器
+        binding.lottieAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
+
+            override fun onAnimationStart(p0: Animator) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animator) {
+                binding.lottieAnimationView.visibility = View.GONE // 隱藏 LottieAnimationView
+            }
+
+            override fun onAnimationCancel(p0: Animator) {
+
+            }
+
+            override fun onAnimationRepeat(p0: Animator) {
+
+            }
+        })
+
+        binding.lottieAnimationView.playAnimation()
     }
 
     private fun setupNavController() {
@@ -84,5 +115,9 @@ class MainActivity : AppCompatActivity() {
     fun changeTitle(title: String) {
         binding.title.text = title
 
+    }
+
+    fun endAnimation() {
+        binding.lottieAnimationView.visibility = View.GONE
     }
 }

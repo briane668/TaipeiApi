@@ -68,38 +68,44 @@
 
                 <TextView
                     android:id="@+id/address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/rounded_blue_border"
                     android:padding="4dp"
                     android:text="address"
                     android:textColor="#03A9F4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/openTime"
                     app:layout_constraintTop_toBottomOf="@+id/openTime" />
 
                 <TextView
                     android:id="@+id/phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/rounded_blue_border"
                     android:padding="4dp"
                     android:text="電話
 "
                     android:textColor="#03A9F4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/openTime"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
 
                 <TextView
                     android:id="@+id/webviewUrl"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/rounded_blue_border"
                     android:padding="4dp"
                     android:text="http:123456"
                     android:textColor="#03A9F4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/openTime"
                     app:layout_constraintTop_toBottomOf="@+id/phone" />
 
