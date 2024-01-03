@@ -47,30 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-// 添加監聽器
-
-// 添加監聽器
-        binding.lottieAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
-
-            override fun onAnimationStart(p0: Animator) {
-
-            }
-
-            override fun onAnimationEnd(p0: Animator) {
-                binding.lottieAnimationView.visibility = View.GONE // 隱藏 LottieAnimationView
-            }
-
-            override fun onAnimationCancel(p0: Animator) {
-
-            }
-
-            override fun onAnimationRepeat(p0: Animator) {
-
-            }
-        })
-
-        binding.lottieAnimationView.playAnimation()
     }
 
     private fun setupNavController() {
@@ -117,7 +93,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun endAnimation() {
-        binding.lottieAnimationView.visibility = View.GONE
-    }
 }
